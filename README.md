@@ -32,4 +32,6 @@ And set the img-lazy-src to the image attribute
 
  ## Exemple
  
+ http://codepen.io/pavei/pen/oFpCy
+ 
  
