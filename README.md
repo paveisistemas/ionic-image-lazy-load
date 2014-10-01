@@ -14,8 +14,22 @@ Download the file JS ionic-image-lazy-load.js and load into your index.html
 Load into your module
 
 ``` javascript
-    angular.module('yourapp',
-        ['ionic', 'ionic-image-lazy-load'])
+angular.module('yourapp',
+              ['ionic', 'ionic-image-lazy-load'])
 ```
 
+You will need set scroller directive into your <ion-content>, that's listen the scroll event  
 
+``` javascript
+<ion-content scroller >
+```
+
+And set the img-lazy-src to the image attribute
+
+``` javascript
+ <img image-lazy-src="{{item.thumbs.video}}">
+```
+
+ ## Exemple
+ 
+ 

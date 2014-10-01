@@ -2,7 +2,7 @@
  * Created by PAVEI on 30/09/2014.
  */
 angular.module('ionic-img-lazy-load').directive(
-    'scroller', function ($document, scrollAndResizeListener, $rootScope, $timeout) {
+    'scroller', function ($document, $rootScope, $timeout) {
         return {
             restrict: 'A',
             link: function ($scope, $element, $attributes) {
@@ -30,7 +30,7 @@ angular.module('ionic-img-lazy-load').directive(
     });
 
 angular.module('ionic-img-lazy-load').directive(
-    'imageLazySrc', function ($document, scrollAndResizeListener) {
+    'imageLazySrc', function ($document) {
         return {
             restrict: 'A',
             link: function ($scope, $element, $attributes) {
@@ -55,7 +55,7 @@ angular.module('ionic-img-lazy-load').directive(
                 }
 
                 // bind listener
-                listenerRemover = scrollAndResizeListener.bindListener(isInView);
+               // listenerRemover = scrollAndResizeListener.bindListener(isInView);
 
                 // unbind event listeners if element was destroyed
                 // it happens when you change view, etc
