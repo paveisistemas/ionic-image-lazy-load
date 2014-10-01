@@ -5,20 +5,18 @@
 angular.module('ionic-img-lazy-load', []);
 
 angular.module('ionic-img-lazy-load').directive(
-    'scroller', function ($document, $rootScope, $timeout) {
+    'scroller', function ($rootScope, $timeout) {
         return {
             restrict: 'A',
-            link: function ($scope, $element, $attributes) {
+            link: function ($scope, $element) {
 
-                var id = 0,
-                    scrollTimeoutId,
-                    resizeTimeoutId;
+                var scrollTimeoutId = 0;
 
                 $scope.invoke = function () {
                     $rootScope.$broadcast('scrollEvent');
-                }
+                };
 
-                $element.bind('scroll', function (e) {
+                $element.bind('scroll', function () {
 
                     $timeout.cancel(scrollTimeoutId);
 
@@ -29,7 +27,7 @@ angular.module('ionic-img-lazy-load').directive(
 
 
             }
-        }
+        };
     });
 
 angular.module('ionic-img-lazy-load').directive(
@@ -37,7 +35,6 @@ angular.module('ionic-img-lazy-load').directive(
         return {
             restrict: 'A',
             link: function ($scope, $element, $attributes) {
-                var listenerRemover;
 
                 var deregistration = $scope.$on('scrollEvent', function () {
                         console.log('scroll');
@@ -71,6 +68,6 @@ angular.module('ionic-img-lazy-load').directive(
                     deregistration();
                 }
             }
-        }
+        };
     }
 );
