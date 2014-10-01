@@ -1,6 +1,9 @@
 /**
  * Created by PAVEI on 30/09/2014.
  */
+
+angular.module('ionic-img-lazy-load', []);
+
 angular.module('ionic-img-lazy-load').directive(
     'scroller', function ($document, $rootScope, $timeout) {
         return {
@@ -36,9 +39,8 @@ angular.module('ionic-img-lazy-load').directive(
             link: function ($scope, $element, $attributes) {
                 var listenerRemover;
 
-
                 var deregistration = $scope.$on('scrollEvent', function () {
-
+                        console.log('scroll');
                         if (isInView()) {
                             $element[0].src = $attributes.imageLazySrc; // set src attribute on element (it will load image)
                             deregistration();
@@ -55,7 +57,7 @@ angular.module('ionic-img-lazy-load').directive(
                 }
 
                 // bind listener
-               // listenerRemover = scrollAndResizeListener.bindListener(isInView);
+                // listenerRemover = scrollAndResizeListener.bindListener(isInView);
 
                 // unbind event listeners if element was destroyed
                 // it happens when you change view, etc
