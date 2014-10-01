@@ -29,8 +29,7 @@ And set the img-lazy-src to the image attribute
 ``` javascript
  <img image-lazy-src="{{item.thumbs.video}}">
 ```
-
- ## Exemple
+## Exemple
  
  http://codepen.io/pavei/pen/oFpCy
  
