@@ -63,12 +63,12 @@ angular.module('ionicLazyLoad').directive(
                 });
 
                 // explicitly call scroll listener (because, some images are in viewport already and we haven't scrolled yet)
-                $scope.$on('$ionicView.afterEnter', function() {
+                $timeout(function() {
                     if (isInView()) {
                         $element[0].src = $attributes.imageLazySrc; // set src attribute on element (it will load image)
                         deregistration();
                     }
-                });
+                }, 500);
             }
         };
     }
