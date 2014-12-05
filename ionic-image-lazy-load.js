@@ -1,11 +1,12 @@
 /**
  * Created by PAVEI on 30/09/2014.
+ * Updated by Ross Martin on 12/05/2014
  */
 
-angular.module('ionic-img-lazy-load', []);
+angular.module('ionicLazyLoad', []);
 
-angular.module('ionic-img-lazy-load').directive(
-    'scroller', function ($rootScope, $timeout) {
+angular.module('ionicLazyLoad').directive(
+    'lazyScroll', function ($rootScope, $timeout) {
         return {
             restrict: 'A',
             link: function ($scope, $element) {
@@ -20,8 +21,8 @@ angular.module('ionic-img-lazy-load').directive(
 
                     $timeout.cancel(scrollTimeoutId);
 
-                    // wait for 200ms and then invoke listeners (simulates stop event)
-                    scrollTimeoutId = $timeout($scope.invoke, 50);
+                    // wait and then invoke listeners (simulates stop event)
+                    scrollTimeoutId = $timeout($scope.invoke, 0);
 
                 });
 
@@ -30,14 +31,14 @@ angular.module('ionic-img-lazy-load').directive(
         };
     });
 
-angular.module('ionic-img-lazy-load').directive(
-    'imageLazySrc', function ($document) {
+angular.module('ionicLazyLoad').directive(
+    'imageLazySrc', function ($document, $timeout) {
         return {
             restrict: 'A',
             link: function ($scope, $element, $attributes) {
 
                 var deregistration = $scope.$on('scrollEvent', function () {
-                        console.log('scroll');
+                        //console.log('scroll');
                         if (isInView()) {
                             $element[0].src = $attributes.imageLazySrc; // set src attribute on element (it will load image)
                             deregistration();
@@ -46,7 +47,6 @@ angular.module('ionic-img-lazy-load').directive(
                 );
 
                 function isInView() {
-
                     var clientHeight = $document[0].documentElement.clientHeight;
                     var clientWidth = $document[0].documentElement.clientWidth;
                     var imageRect = $element[0].getBoundingClientRect();
@@ -63,10 +63,12 @@ angular.module('ionic-img-lazy-load').directive(
                 });
 
                 // explicitly call scroll listener (because, some images are in viewport already and we haven't scrolled yet)
-                if (isInView()) {
-                    $element[0].src = $attributes.imageLazySrc; // set src attribute on element (it will load image)
-                    deregistration();
-                }
+                $scope.$on('$ionicView.afterEnter', function() {
+                    if (isInView()) {
+                        $element[0].src = $attributes.imageLazySrc; // set src attribute on element (it will load image)
+                        deregistration();
+                    }
+                });
             }
         };
     }
