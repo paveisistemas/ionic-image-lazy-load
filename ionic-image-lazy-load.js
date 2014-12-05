@@ -16,7 +16,7 @@ angular.module('ionicLazyLoad')
                 var scrollTimeoutId = 0;
 
                 $scope.invoke = function () {
-                    $rootScope.$broadcast('scrollEvent');
+                    $rootScope.$broadcast('lazyScrollEvent');
                 };
 
                 $element.bind('scroll', function () {
@@ -39,7 +39,7 @@ angular.module('ionicLazyLoad')
             restrict: 'A',
             link: function ($scope, $element, $attributes) {
 
-                var deregistration = $scope.$on('scrollEvent', function () {
+                var deregistration = $scope.$on('lazyScrollEvent', function () {
                         //console.log('scroll');
                         if (isInView()) {
                             $element[0].src = $attributes.imageLazySrc; // set src attribute on element (it will load image)
