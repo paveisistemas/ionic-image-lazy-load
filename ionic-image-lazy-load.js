@@ -5,8 +5,10 @@
 
 angular.module('ionicLazyLoad', []);
 
-angular.module('ionicLazyLoad').directive(
-    'lazyScroll', function ($rootScope, $timeout) {
+angular.module('ionicLazyLoad')
+
+.directive('lazyScroll', ['$rootScope', '$timeout', 
+    function($rootScope, $timeout) {
         return {
             restrict: 'A',
             link: function ($scope, $element) {
@@ -29,10 +31,10 @@ angular.module('ionicLazyLoad').directive(
 
             }
         };
-    });
+}])
 
-angular.module('ionicLazyLoad').directive(
-    'imageLazySrc', function ($document, $timeout) {
+.directive('imageLazySrc', ['$document', '$timeout', 
+    function ($document, $timeout) {
         return {
             restrict: 'A',
             link: function ($scope, $element, $attributes) {
@@ -71,5 +73,4 @@ angular.module('ionicLazyLoad').directive(
                 }, 500);
             }
         };
-    }
-);
+}]);
