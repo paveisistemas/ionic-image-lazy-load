@@ -21,10 +21,10 @@ angular.module('yourapp',
               ['ionic', 'ionicLazyLoad'])
 ```
 
-Set the `lazy-scroller` directive on your `<ion-content>` tag, that will listen to the scroll event:
+Set the `lazy-scroll` directive on your `<ion-content>` tag, that will listen to the scroll event:
 
 ``` javascript
-<ion-content lazy-scroller>
+<ion-content lazy-scroll>
 ```
 
 And set the `img-lazy-src` directive on the image attribute instead of `src`:
