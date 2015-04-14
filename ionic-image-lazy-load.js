@@ -1,6 +1,7 @@
 /**
  * Created by PAVEI on 30/09/2014.
  * Updated by Ross Martin on 12/05/2014
+ * Updated by Davide Pastore on 04/14/2015
  */
 
 angular.module('ionicLazyLoad', []);
@@ -33,15 +34,27 @@ angular.module('ionicLazyLoad')
         };
 }])
 
-.directive('imageLazySrc', ['$document', '$timeout', 
-    function ($document, $timeout) {
+.directive('imageLazySrc', ['$document', '$timeout', '$ionicScrollDelegate',
+    function ($document, $timeout, $ionicScrollDelegate) {
         return {
             restrict: 'A',
+            scope: {
+            	lazyScrollResize: "@lazyScrollResize"
+            },
             link: function ($scope, $element, $attributes) {
 
                 var deregistration = $scope.$on('lazyScrollEvent', function () {
                         //console.log('scroll');
                         if (isInView()) {
+                            
+                            //Bind "load" event
+                            $element.bind("load", function(e){
+                        		if($scope.lazyScrollResize == "true"){
+                        			//Call the resize to recalculate the size of the screen
+                        			$ionicScrollDelegate.resize();
+                        		}
+                        	});
+                            
                             $element[0].src = $attributes.imageLazySrc; // set src attribute on element (it will load image)
                             deregistration();
                         }

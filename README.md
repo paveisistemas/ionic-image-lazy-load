@@ -32,3 +32,9 @@ And set the `img-lazy-src` directive on the image attribute instead of `src`:
 ``` javascript
  <img image-lazy-src="{{item.thumbnail}}">
 ```
+
+You can also set an option to auto call `$ionicScrollDelegate.resize()` when the image `load` (default value is `false`):
+
+``` javascript
+ <img image-lazy-src="{{item.thumbnail}}" lazy-scroll-resize="true">
+```
