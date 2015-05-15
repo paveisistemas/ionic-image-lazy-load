@@ -71,7 +71,6 @@ angular.module('ionicLazyLoad')
                         if ($attributes.imageLazyLoader) {
                             loader.remove();
                         }
-                        $element[0].src = $attributes.imageLazySrc; // set src attribute on element (it will load image)
                         if ($scope.lazyScrollResize == "true") {
                             //Call the resize to recalculate the size of the screen
                             $ionicScrollDelegate.resize();
@@ -91,6 +90,8 @@ angular.module('ionicLazyLoad')
                             }
                         };
                         bgImg.src = $attributes.imageLazySrc;
+                    } else {
+                        $element[0].src = $attributes.imageLazySrc; // set src attribute on element (it will load image)
                     }
                 }
 
