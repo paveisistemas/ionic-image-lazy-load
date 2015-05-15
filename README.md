@@ -4,6 +4,7 @@ ionic-image-lazy-load
 
 ## Demo
 http://codepen.io/mvidailhet/pen/yNOGzY
+http://codepen.io/pavei/pen/oFpCy
 
 ## Quick Start
 
