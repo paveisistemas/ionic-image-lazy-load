@@ -2,6 +2,9 @@ ionic-image-lazy-load
 =====================
 
 
+## Demo
+http://codepen.io/mvidailhet/pen/yNOGzY
+
 ## Quick Start
 
 Download the file JS *ionic-image-lazy-load.js*, save on your project and load it on your *index.html*.
