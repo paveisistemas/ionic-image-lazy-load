@@ -26,7 +26,7 @@ angular.module('ionicLazyLoad')
                     $timeout.cancel(scrollTimeoutId);
 
                     // wait and then invoke listeners (simulates stop event)
-                    scrollTimeoutId = $timeout($scope.invoke, 0);
+                    scrollTimeoutId = $timeout($scope.invoke, 150);
 
                 });
 
