@@ -37,7 +37,7 @@ Set the `lazy-scroll` directive on your `<ion-content>` tag, that will listen to
 <ion-content lazy-scroll>
 ```
 
-And set the `img-lazy-src` directive on the image attribute instead of `src`:
+And set the `image-lazy-src` directive on the image attribute instead of `src`:
 
 ```javascript
  <img image-lazy-src="{{item.thumbnail}}">
