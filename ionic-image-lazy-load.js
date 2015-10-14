@@ -41,7 +41,8 @@ angular.module('ionicLazyLoad')
             restrict: 'A',
             scope: {
                 lazyScrollResize: "@lazyScrollResize",
-                imageLazyBackgroundImage: "@imageLazyBackgroundImage"
+                imageLazyBackgroundImage: "@imageLazyBackgroundImage",
+                imageLazySrc: "@"
             },
             link: function ($scope, $element, $attributes) {
                 if (!$attributes.imageLazyDistanceFromBottomToLoad) {
@@ -51,13 +52,36 @@ angular.module('ionicLazyLoad')
                     $attributes.imageLazyDistanceFromRightToLoad = 0;
                 }
 
+                var loader;
                 if ($attributes.imageLazyLoader) {
-                    var loader = $compile('<div class="image-loader-container"><ion-spinner class="image-loader" icon="' + $attributes.imageLazyLoader + '"></ion-spinner></div>')($scope);
+                    loader = $compile('<div class="image-loader-container"><ion-spinner class="image-loader" icon="' + $attributes.imageLazyLoader + '"></ion-spinner></div>')($scope);
                     $element.after(loader);
                 }
 
+                $scope.$watch('imageLazySrc', function (oldV, newV) {
+                    if(loader)
+                        loader.remove();
+                    if ($attributes.imageLazyLoader) {
+                        loader = $compile('<div class="image-loader-container"><ion-spinner class="image-loader" icon="' + $attributes.imageLazyLoader + '"></ion-spinner></div>')($scope);
+                        $element.after(loader);
+                    }
+                    var deregistration = $scope.$on('lazyScrollEvent', function () {
+                            console.log('scroll');
+                            if (isInView()) {
+                                loadImage();
+                                deregistration();
+                            }
+                        }
+                    );
+                    $timeout(function () {
+                        if (isInView()) {
+                            loadImage();
+                            deregistration();
+                        }
+                    }, 500);
+                });
                 var deregistration = $scope.$on('lazyScrollEvent', function () {
-                        //console.log('scroll');
+                        console.log('scroll');
                         if (isInView()) {
                             loadImage();
                             deregistration();
@@ -75,6 +99,7 @@ angular.module('ionicLazyLoad')
                             //Call the resize to recalculate the size of the screen
                             $ionicScrollDelegate.resize();
                         }
+                        $element.unbind("load");
                     });
 
                     if ($scope.imageLazyBackgroundImage == "true") {
