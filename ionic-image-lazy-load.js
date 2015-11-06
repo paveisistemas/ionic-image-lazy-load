@@ -9,24 +9,24 @@ angular.module('ionicLazyLoad', []);
 
 angular.module('ionicLazyLoad')
 
-.directive('lazyScroll', ['$rootScope', '$timeout', 
+.directive('lazyLoadOn', ['$rootScope', '$timeout', 
     function($rootScope, $timeout) {
         return {
             restrict: 'A',
-            link: function ($scope, $element) {
+            link: function ($scope, $element, attrs) {
 
-                var scrollTimeoutId = 0;
+                var lazyLoadTimeoutId = 0;
 
                 $scope.invoke = function () {
-                    $rootScope.$broadcast('lazyScrollEvent');
+                    $rootScope.$broadcast('lazyLoadEvent');
                 };
 
-                $element.bind('scroll', function () {
+                $element.bind(attrs.lazyLoadOn, function () {
 
-                    $timeout.cancel(scrollTimeoutId);
+                    $timeout.cancel(lazyLoadTimeoutId);
 
                     // wait and then invoke listeners (simulates stop event)
-                    scrollTimeoutId = $timeout($scope.invoke, 150);
+                    lazyLoadTimeoutId = $timeout($scope.invoke, 150);
 
                 });
 
@@ -65,7 +65,7 @@ angular.module('ionicLazyLoad')
                         loader = $compile('<div class="image-loader-container"><ion-spinner class="image-loader" icon="' + $attributes.imageLazyLoader + '"></ion-spinner></div>')($scope);
                         $element.after(loader);
                     }
-                    var deregistration = $scope.$on('lazyScrollEvent', function () {
+                    var deregistration = $scope.$on('lazyLoadEvent', function () {
                             console.log('scroll');
                             if (isInView()) {
                                 loadImage();
@@ -80,7 +80,7 @@ angular.module('ionicLazyLoad')
                         }
                     }, 500);
                 });
-                var deregistration = $scope.$on('lazyScrollEvent', function () {
+                var deregistration = $scope.$on('lazyLoadEvent', function () {
                         console.log('scroll');
                         if (isInView()) {
                             loadImage();
