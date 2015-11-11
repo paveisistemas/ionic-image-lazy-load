@@ -35,6 +35,32 @@ angular.module('ionicLazyLoad')
         };
 }])
 
+.directive('lazyScroll', ['$rootScope', '$timeout', 
+    function($rootScope, $timeout) {
+        return {
+            restrict: 'A',
+            link: function ($scope, $element) {
+
+                var lazyLoadTimeoutId = 0;
+
+                $scope.invoke = function () {
+                    $rootScope.$broadcast('lazyLoadEvent');
+                };
+
+                $element.bind('scroll', function () {
+
+                    $timeout.cancel(lazyLoadTimeoutId);
+
+                    // wait and then invoke listeners (simulates stop event)
+                    lazyLoadTimeoutId = $timeout($scope.invoke, 150);
+
+                });
+
+
+            }
+        };
+}])
+
 .directive('imageLazySrc', ['$document', '$timeout', '$ionicScrollDelegate', '$compile',
     function ($document, $timeout, $ionicScrollDelegate, $compile) {
         return {
