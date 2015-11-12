@@ -66,7 +66,7 @@ angular.module('ionicLazyLoad')
                         $element.after(loader);
                     }
                     var deregistration = $scope.$on('lazyScrollEvent', function () {
-                            console.log('scroll');
+                        //    console.log('scroll');
                             if (isInView()) {
                                 loadImage();
                                 deregistration();
@@ -81,7 +81,7 @@ angular.module('ionicLazyLoad')
                     }, 500);
                 });
                 var deregistration = $scope.$on('lazyScrollEvent', function () {
-                        console.log('scroll');
+                       // console.log('scroll');
                         if (isInView()) {
                             loadImage();
                             deregistration();
