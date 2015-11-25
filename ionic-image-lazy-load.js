@@ -3,34 +3,26 @@
  * Updated by Ross Martin on 12/05/2014
  * Updated by Davide Pastore on 04/14/2015
  * Updated by Michel Vidailhet on 05/12/2015
+ * Updated by Rene Korss on 11/25/2015
  */
 
 angular.module('ionicLazyLoad', []);
 
 angular.module('ionicLazyLoad')
 
-.directive('lazyScroll', ['$rootScope', '$timeout', 
-    function($rootScope, $timeout) {
+.directive('lazyScroll', ['$rootScope',
+    function($rootScope) {
         return {
             restrict: 'A',
             link: function ($scope, $element) {
-
-                var scrollTimeoutId = 0;
-
-                $scope.invoke = function () {
+                var origEvent = $scope.$onScroll;
+                $scope.$onScroll = function () {
                     $rootScope.$broadcast('lazyScrollEvent');
+
+                    if(typeof origEvent === 'function'){
+                      origEvent();
+                    }
                 };
-
-                $element.bind('scroll', function () {
-
-                    $timeout.cancel(scrollTimeoutId);
-
-                    // wait and then invoke listeners (simulates stop event)
-                    scrollTimeoutId = $timeout($scope.invoke, 150);
-
-                });
-
-
             }
         };
 }])
