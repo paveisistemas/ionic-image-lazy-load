@@ -43,11 +43,19 @@ angular.module('ionicLazyLoad')
                 if (!$attributes.imageLazyDistanceFromRightToLoad) {
                     $attributes.imageLazyDistanceFromRightToLoad = 0;
                 }
+                
+                function addLoader(loader) {
+                    if ($scope.imageLazyBackgroundImage == "true") {
+                        $element.prepend(loader);
+                    } else {
+                        $element.after(loader);
+                    }
+                }
 
                 var loader;
                 if ($attributes.imageLazyLoader) {
                     loader = $compile('<div class="image-loader-container"><ion-spinner class="image-loader" icon="' + $attributes.imageLazyLoader + '"></ion-spinner></div>')($scope);
-                    $element.after(loader);
+                    addLoader(loader);
                 }
 
                 $scope.$watch('imageLazySrc', function (oldV, newV) {
@@ -55,7 +63,7 @@ angular.module('ionicLazyLoad')
                         loader.remove();
                     if ($attributes.imageLazyLoader) {
                         loader = $compile('<div class="image-loader-container"><ion-spinner class="image-loader" icon="' + $attributes.imageLazyLoader + '"></ion-spinner></div>')($scope);
-                        $element.after(loader);
+                        addLoader(loader);
                     }
                     var deregistration = $scope.$on('lazyScrollEvent', function () {
                         //    console.log('scroll');
