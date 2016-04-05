@@ -54,6 +54,12 @@ You can also set an option to auto call `$ionicScrollDelegate.resize()` when the
  <img image-lazy-src="{{item.thumbnail}}" lazy-scroll-resize="true">
 ```
 
+Automatically call `$ionicScrollDelegate.scrollToBottom(true)` when the image loads (default value is `false`):
+
+```javascript
+ <img image-lazy-src="{{item.thumbnail}}" lazy-scroll-bottom="true">
+```
+
 To show a ionic spinner while the image is loading, just specify a ionic spinner type (list is here: http://ionicframework.com/docs/api/directive/ionSpinner/):
 
 ```javascript
