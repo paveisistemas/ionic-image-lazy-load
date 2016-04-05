@@ -4,7 +4,7 @@
  * Updated by Davide Pastore on 04/14/2015
  * Updated by Michel Vidailhet on 05/12/2015
  * Updated by Rene Korss on 11/25/2015
- * Updated by Robert Peralta on 4/5/2016
+ * Updated by Robert Peralta on 4/5/2016  
  */
 
 angular.module('ionicLazyLoad', []);
