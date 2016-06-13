@@ -100,7 +100,7 @@ angular.module('ionicLazyLoad')
                             if ($attributes.imageLazyLoader) {
                                 loader.remove();
                             }
-                            $element[0].style.backgroundImage = 'url(' + $attributes.imageLazySrc + ')'; // set style attribute on element (it will load image)
+                            $element[0].style.backgroundImage = 'url("' + $attributes.imageLazySrc + '")'; // set style attribute on element (it will load image)
                             if ($scope.lazyScrollResize == "true") {
                                 //Call the resize to recalculate the size of the screen
                                 $ionicScrollDelegate.resize();
