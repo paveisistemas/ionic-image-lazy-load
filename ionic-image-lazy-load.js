@@ -4,6 +4,7 @@
  * Updated by Davide Pastore on 04/14/2015
  * Updated by Michel Vidailhet on 05/12/2015
  * Updated by Rene Korss on 11/25/2015
+ * Updated by Robert Peralta on 4/5/2016  
  */
 
 angular.module('ionicLazyLoad', []);
@@ -33,6 +34,7 @@ angular.module('ionicLazyLoad')
             restrict: 'A',
             scope: {
                 lazyScrollResize: "@lazyScrollResize",
+                lazyScrollBottom: "@lazyScrollBottom",
                 imageLazyBackgroundImage: "@imageLazyBackgroundImage",
                 imageLazySrc: "@"
             },
@@ -81,16 +83,31 @@ angular.module('ionicLazyLoad')
                     }
                 );
 
+                // Checks if scroll to bottom is set and scrolls
+                function scrollToBottom(){
+                    if ($scope.lazyScrollBottom == "true") {
+                        // resize to bottom after image load
+                        $ionicScrollDelegate.scrollBottom(true);
+                    }
+                };
+
+                // Checks if lazyScrollResize is set and resizes
+                function resizeScroll(){
+                    if ($scope.lazyScrollResize == "true") {
+                        //Call the resize to recalculate the size of the screen
+                        $ionicScrollDelegate.resize();
+                    }
+                };
+
                 function loadImage() {
                     //Bind "load" event
                     $element.bind("load", function (e) {
                         if ($attributes.imageLazyLoader) {
                             loader.remove();
                         }
-                        if ($scope.lazyScrollResize == "true") {
-                            //Call the resize to recalculate the size of the screen
-                            $ionicScrollDelegate.resize();
-                        }
+                        resizeScroll();
+                        scrollToBottom();
+
                         $element.unbind("load");
                     });
 
@@ -101,10 +118,8 @@ angular.module('ionicLazyLoad')
                                 loader.remove();
                             }
                             $element[0].style.backgroundImage = 'url(' + $attributes.imageLazySrc + ')'; // set style attribute on element (it will load image)
-                            if ($scope.lazyScrollResize == "true") {
-                                //Call the resize to recalculate the size of the screen
-                                $ionicScrollDelegate.resize();
-                            }
+                            resizeScroll();
+                            scrollToBottom();
                         };
                         bgImg.src = $attributes.imageLazySrc;
                     } else {
